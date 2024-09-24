@@ -308,7 +308,7 @@ export async function getCollectionProducts({
     console.log(`No collection found for \`${collection}\``);
     return [];
   }
-  
+
 
   return reshapeProducts(removeEdgesAndNodes(res.body.data.collection.products));
 }
@@ -350,10 +350,15 @@ export async function getMenu(handle: string): Promise<Menu[]> {
     }
   });
 
+  // Map the response to include children (sub-items)
   return (
-    res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
+    res.body?.data?.menu?.items.map((item: { title: string; url: string; items?: any[] }) => ({
       title: item.title,
-      path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
+      path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', ''),
+      children: item.items?.map((subItem: { title: string; url: string }) => ({
+        title: subItem.title,
+        path: subItem.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
+      })) || []  // If no children, set an empty array
     })) || []
   );
 }

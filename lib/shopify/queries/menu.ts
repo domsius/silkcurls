@@ -1,10 +1,14 @@
 export const getMenuQuery = /* GraphQL */ `
-  query getMenu($handle: String!) {
-    menu(handle: $handle) {
-      items {
+  query getMenuQuery($handle: String!) {
+  menu(handle: $handle) {
+    items {
+      title
+      url
+      items { # Fetch nested items
         title
         url
       }
+    }
     }
   }
 `;
