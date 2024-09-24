@@ -327,7 +327,7 @@ export async function getCollections(): Promise<Collection[]> {
         title: 'All',
         description: 'All products'
       },
-      path: '/search',
+      path: '/produktai',
       updatedAt: new Date().toISOString()
     },
     // Filter out the `hidden` collections.
