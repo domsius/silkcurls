@@ -19,3 +19,32 @@ input,
 button {
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-neutral-600 dark:focus-visible:ring-offset-neutral-900;
 }
+.banner-image-container{
+  overflow: hidden;
+
+}
+
+.banner-image-container .scale {
+  transition: transform 0.4s ease-in-out;
+}
+
+.banner-image-container .scale:hover {
+  transform: scale(1.2);
+}
+
+.banner-image-container img {
+  position: relative!important;
+  width: 100%!important;
+  height: calc(100vh - 92px)!important;
+  object-fit: cover!important;
+}
+.banner-image-container h1 {
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .banner-image-container img {
+    height: calc(100vh - 76px)!important;
+  }
+}

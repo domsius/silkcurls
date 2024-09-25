@@ -88,7 +88,7 @@ export async function Navbar() {
           prefetch={true}
           className="mr-2 flex items-center justify-center"
         >
-          <LogoIcon className="h-[35px] md:h-[70px]" />
+          <LogoIcon className="h-[36px] md:h-[60px]" />
         </Link>
       </div>
 
