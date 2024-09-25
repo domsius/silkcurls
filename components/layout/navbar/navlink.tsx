@@ -9,7 +9,7 @@ const NavLink = ({ href, title }: { href: string; title: string }) => {
   return (
     <Link
       href={href}
-      className={`block px-3 pt-5 rounded-md text-base font-medium ${isActive ? 'text-black border-b-2 border-black' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'}`}
+      className={`block px-3 pt-5 text-base font-medium ${isActive ? 'text-black border-b-2 border-black' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'}`}
     >
       {title}
     </Link>
