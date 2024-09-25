@@ -15,7 +15,7 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
-      <BannerImage src="/images/banner.jpg" alt="Banner" text="Natūralūs šilko gaminiai" />
+      <BannerImage />
       <FeaturesSection />
       <FeaturesGrid />
       <ThreeItemGrid />
