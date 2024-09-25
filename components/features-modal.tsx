@@ -119,7 +119,7 @@ const FeaturesModal = () => {
             onClick={() => handleOpenModal(feature.content)}
           >
             {/* Circular image with shadow */}
-            <div className="w-48 h-48 rounded-full overflow-hidden shadow-lg mb-6">
+            <div className="w-100 h-100 rounded-full overflow-hidden shadow-lg mb-6">
               <img src={feature.image} alt={feature.title} className="object-cover w-full h-full" />
             </div>
 
