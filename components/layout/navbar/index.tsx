@@ -11,23 +11,37 @@ const { SITE_NAME } = process.env;
 
 export async function Navbar() {
   const menu = await getMenu('next-js-frontend-header-menu');
-
-  console.log('Menu items:', menu);
+  const additionalMenuItems = [
+    { title: 'Parduotuvė', path: '/produktai' }, 
+    { title: 'Apie mus', path: '/apie-mus' },
+    { title: 'Kontaktai', path: '/kontaktai' },
+    {
+      title: 'Politikos',
+      path: '/politikos',
+      children: [
+        { title: 'Privatumo politika', path: '/politikos/privatumo-politika' },
+        { title: 'Grąžinimas', path: '/politikos/grazinimas' },
+        { title: 'Pristatymas', path: '/politikos/pristatymas' }
+      ]
+    }
+  ];
+  
+  const combinedMenu = [...menu, ...additionalMenuItems];
 
   return (
-    <nav className="relative flex items-center justify-between bg-white p-4 lg:px-6">
+    <nav className="relative flex items-center justify-between bg-white p-4 lg:px-[50px]">
       {/* Mobile hamburger icon */}
       <div className="flex items-center w-1/3 md:hidden">
         <Suspense fallback={null}>
-          <MobileMenu menu={menu} />
+          <MobileMenu menu={combinedMenu} />
         </Suspense>
       </div>
 
       {/* Links section on the left (hidden on small screens) */}
       <div className="hidden md:flex items-center w-1/3">
-        {menu.length ? (
+        {combinedMenu.length ? (
           <ul className="gap-6 text-sm md:flex md:items-center">
-            {menu.map((item: Menu) => (
+            {combinedMenu.map((item: Menu) => (
               <li
                 key={item.title}
                 className="relative group"
@@ -36,7 +50,7 @@ export async function Navbar() {
                 <Link
                   href={item.path || '#'}
                   prefetch={true}
-                  className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
+                  className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300 md:text-black md:text-[15px]"
                 >
                   {item.title}
                 </Link>
@@ -74,13 +88,13 @@ export async function Navbar() {
           prefetch={true}
           className="mr-2 flex items-center justify-center"
         >
-          <LogoIcon className="h-[45px] md:h-[80px]" />
+          <LogoIcon className="h-[35px] md:h-[70px]" />
         </Link>
       </div>
 
       {/* Search and Cart Modal on the right */}
       <div className="flex items-center justify-end w-1/3">
-        <div className="hidden md:flex">
+        <div className="hidden md:flex mr-5">
           <Suspense fallback={<SearchSkeleton />}>
             <Search />
           </Suspense>

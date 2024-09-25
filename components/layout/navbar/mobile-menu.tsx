@@ -4,8 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment, Suspense, useEffect, useState } from 'react';
-
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import { Menu } from 'lib/shopify/types';
 import Search, { SearchSkeleton } from './search';
 
@@ -13,6 +12,8 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
+  const [openSubmenus, setOpenSubmenus] = useState<{ [key: string]: boolean }>({}); // Track which submenus are open
+
   const openMobileMenu = () => setIsOpen(true);
   const closeMobileMenu = () => setIsOpen(false);
 
@@ -29,6 +30,13 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
   useEffect(() => {
     setIsOpen(false);
   }, [pathname, searchParams]);
+
+  const toggleSubmenu = (title: string) => {
+    setOpenSubmenus((prevState) => ({
+      ...prevState,
+      [title]: !prevState[title],
+    }));
+  };
 
   return (
     <>
@@ -79,13 +87,49 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                 {menu.length ? (
                   <ul className="flex w-full flex-col">
                     {menu.map((item: Menu) => (
-                      <li
-                        className="py-2 text-xl text-black transition-colors hover:text-neutral-500 dark:text-white"
-                        key={item.title}
-                      >
-                        <Link href={item.path} prefetch={true} onClick={closeMobileMenu}>
-                          {item.title}
-                        </Link>
+                      <li key={item.title} className="relative py-2 text-xl text-black dark:text-white">
+                        <div className="flex justify-between items-center">
+                          {/* If the menu item is "Politikos", prevent linking */}
+                          {item.title === 'Politikos' ? (
+                            <span
+                              className="cursor-pointer"
+                              onClick={() => toggleSubmenu(item.title)}
+                              aria-label="Toggle Politikos submenu"
+                            >
+                              {item.title}
+                            </span>
+                          ) : (
+                            <Link href={item.path || '#'} prefetch={true} onClick={closeMobileMenu}>
+                              {item.title}
+                            </Link>
+                          )}
+                          {/* If the menu item has sub-items, render toggle icon */}
+                          {item.children && item.children.length > 0 && (
+                            <button
+                              className="ml-2"
+                              onClick={() => toggleSubmenu(item.title)}
+                              aria-label="Toggle submenu"
+                            >
+                              {openSubmenus[item.title] ? (
+                                <ChevronUpIcon className="h-5 w-5" />
+                              ) : (
+                                <ChevronDownIcon className="h-5 w-5" />
+                              )}
+                            </button>
+                          )}
+                        </div>
+                        {/* Submenu items */}
+                        {item.children && item.children.length > 0 && openSubmenus[item.title] && (
+                          <ul className="pl-4 mt-2">
+                            {item.children.map((subItem: Menu) => (
+                              <li key={subItem.title} className="py-2 text-lg text-neutral-600 dark:text-neutral-300">
+                                <Link href={subItem.path} prefetch={true} onClick={closeMobileMenu}>
+                                  {subItem.title}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </li>
                     ))}
                   </ul>
