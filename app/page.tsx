@@ -3,7 +3,7 @@ import { ThreeItemGrid } from 'components/grid/three-items';
 import Footer from 'components/layout/footer';
 import BannerImage from 'components/banner-image';
 import FeaturesSection from 'components/features-section';
-import FeaturesModal from 'components/features-modal';
+import FeaturesGrid from 'components/features-modal';
 
 export const metadata = {
   description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
@@ -17,7 +17,7 @@ export default function HomePage() {
     <>
       <BannerImage src="/images/banner.jpg" alt="Banner" text="Natūralūs šilko gaminiai" />
       <FeaturesSection />
-      <FeaturesModal />
+      <FeaturesGrid />
       <ThreeItemGrid />
       <Carousel />
       <Footer />

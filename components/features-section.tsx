@@ -3,6 +3,7 @@ import GiftIcon from 'components/icons/gift';
 import HandmadeIcon from 'components/icons/handmade';
 import SilkIcon from 'components/icons/silk';
 
+// Your feature data
 const features = [
   {
     icon: DeliveryIcon,
@@ -28,24 +29,28 @@ const features = [
 
 const FeaturesSection = () => {
   return (
-    <div className="bg-[#9aaf8f] py-10">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4 md:px-0">
-        {features.map((feature, index) => (
-          <div
-            key={index}
-            className="flex flex-col items-center text-center py-10"
-          >
-            <div className="w-24 h-24 bg-[#d7dfd2] rounded-full flex items-center justify-center mb-4">
-              {/* Apply responsive size and color transitions */}
-              <feature.icon className="text-[#9aaf8f] hover:text-[#b8a398] transition-colors duration-300 w-[40px] h-[40px]" />
-            </div>
-            <h3 className="text-lg md:text-xl font-serif italic font-semibold mb-2 text-gray-700">
-              {feature.title}
-            </h3>
-            <div className="w-16 h-0.5 bg-white mb-4"></div>
-            <p className="text-sm text-gray-600">{feature.description}</p>
-          </div>
-        ))}
+    <div className="bg-white py-24 sm:py-32">
+      <div className="mx-auto container">
+        <div className="mx-auto max-w-2xl lg:mx-0">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Mūsų funkcijos</h2>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            Mes siūlome platų įvairių funkcijų asortimentą, kad kiekvienas jūsų užsakymas būtų ypatingas.
+          </p>
+        </div>
+        <ul
+          role="list"
+          className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-4"
+        >
+          {features.map((feature, index) => (
+            <li key={index} className="flex flex-col items-center text-center">
+              <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
+                <feature.icon className="text-black hover:text-[#b8a398]  border-transition-colors duration-300 w-[40px] h-[40px]" />
+              </div>
+              <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">{feature.title}</h3>
+              <p className="text-base leading-7 text-gray-600">{feature.description}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
