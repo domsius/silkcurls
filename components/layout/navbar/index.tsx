@@ -1,106 +1,145 @@
+'use client';
+import React, { useState } from 'react';
 import CartModal from 'components/cart/modal';
-import { getMenu } from 'lib/shopify';
-import { Menu } from 'lib/shopify/types';
-import Link from 'next/link';
-import { Suspense } from 'react';
-import MobileMenu from './mobile-menu';
-import Search, { SearchSkeleton } from './search';
-import LogoIcon from 'components/icons/logo';
+import NavLink from './navlink'; // Import the NavLink component
 
-const { SITE_NAME } = process.env;
+const Navbar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
-export async function Navbar() {
-  const menu = await getMenu('next-js-frontend-header-menu');
-  const additionalMenuItems = [
-    { title: 'Parduotuvė', path: '/produktai' }, 
-    { title: 'Apie mus', path: '/apie-mus' },
-    { title: 'Kontaktai', path: '/kontaktai' },
-    {
-      title: 'Politikos',
-      path: '/politikos',
-      children: [
-        { title: 'Privatumo politika', path: '/politikos/privatumo-politika' },
-        { title: 'Grąžinimas', path: '/politikos/grazinimas' },
-        { title: 'Pristatymas', path: '/politikos/pristatymas' }
-      ]
-    }
-  ];
-  
-  const combinedMenu = [...menu, ...additionalMenuItems];
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen((prev) => !prev);
+  };
+  const toggleProfileDropdown = () => {
+    setIsProfileDropdownOpen((prev) => !prev);
+  };
 
   return (
-    <nav className="relative flex items-center justify-between bg-white p-4 lg:px-[50px]">
-      {/* Mobile hamburger icon */}
-      <div className="flex items-center w-1/3 md:hidden">
-        <Suspense fallback={null}>
-          <MobileMenu menu={combinedMenu} />
-        </Suspense>
-      </div>
-
-      {/* Links section on the left (hidden on small screens) */}
-      <div className="hidden md:flex items-center w-1/3">
-        {combinedMenu.length ? (
-          <ul className="gap-6 text-sm md:flex md:items-center">
-            {combinedMenu.map((item: Menu) => (
-              <li
-                key={item.title}
-                className="relative group"
-                style={{ paddingBottom: '10px' }} // Add padding to increase the hoverable area
-              >
-                <Link
-                  href={item.path || '#'}
-                  prefetch={true}
-                  className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300 md:text-black md:text-[15px]"
+    <nav className="bg-white shadow">
+      <div className="mx-auto container">
+        <div className="relative flex h-16 justify-between">
+          {/* Mobile menu button */}
+          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            <button
+              type="button"
+              className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              aria-controls="mobile-menu"
+              aria-expanded={isMobileMenuOpen}
+              onClick={toggleMobileMenu}
+            >
+              <span className="sr-only">Open main menu</span>
+              {isMobileMenuOpen ? (
+                <svg
+                  className="block h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
                 >
-                  {item.title}
-                </Link>
-                
-                {/* Check if the menu item has sub-items */}
-                {item.children && item.children.length > 0 && (
-                  <div
-                    className="absolute left-0 z-10 mt-0 w-48 bg-white text-sm shadow-lg ring-1 ring-gray-900/5 group-hover:block transition ease-out duration-200 opacity-0 group-hover:opacity-100"
-                    style={{ top: '100%' }} // Align dropdown to the bottom of the parent item
-                  >
-                    <div className="p-2">
-                      {item.children.map((subItem: Menu) => (
-                        <div
-                          key={subItem.title}
-                          className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 text-neutral-600 dark:text-neutral-300"
-                        >
-                          <Link href={subItem.path}>
-                            {subItem.title}
-                          </Link>
-                        </div>
-                      ))}
-                    </div>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="block h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
+
+          {/* Logo and Links */}
+          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div className="flex flex-shrink-0 items-center">
+              <a href="/">
+              <img
+                className="h-10 w-auto"
+                src="images/logo.png"
+                alt="SilkCurl"
+              />
+              </a>
+              
+            </div>
+            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+              {/* Links */}
+              <NavLink href="/produktai" title="Parduotuvė" />
+              <NavLink href="/apie-mus" title="Apie mus" />
+              <NavLink href="/kontaktai" title="Kontaktai" />
+              <div className="relative group">
+                <NavLink href="#" title="Politikos" />
+                <div className="absolute left-0 z-10 hidden w-48 bg-white text-sm shadow-lg ring-1 ring-black ring-opacity-5 group-hover:block transition-opacity ease-out duration-200 opacity-0 group-hover:opacity-100">
+                  <div className="p-2">
+                    <NavLink href="/politikos/privatumo-politika" title="Privatumo politika" />
+                    <NavLink href="/politikos/grazinimas" title="Grąžinimas" />
+                    <NavLink href="/politikos/pristatymas" title="Pristatymas" />
                   </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      {/* Logo section in the center */}
-      <div className="flex justify-center w-1/3">
-        <Link
-          href="/"
-          prefetch={true}
-          className="mr-2 flex items-center justify-center"
-        >
-          <LogoIcon className="h-[36px] md:h-[60px]" />
-        </Link>
-      </div>
+          {/* Right side (Profile, Cart) */}
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            {/* Cart Modal */}
+            <CartModal />
 
-      {/* Search and Cart Modal on the right */}
-      <div className="flex items-center justify-end w-1/3">
-        <div className="hidden md:flex mr-5">
-          <Suspense fallback={<SearchSkeleton />}>
-            <Search />
-          </Suspense>
+            {/* Profile dropdown */}
+            <div className="relative ml-3">
+              <button
+                type="button"
+                className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                onClick={toggleProfileDropdown} // Toggle dropdown on button click
+              >
+                <span className="sr-only">Open user menu</span>
+                <img
+                  className="h-8 w-8 rounded-full"
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt=""
+                />
+              </button>
+
+              {/* Conditionally render the profile dropdown */}
+              {isProfileDropdownOpen && (
+                <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <NavLink href="#" title="Your Profile" />
+                  <NavLink href="#" title="Settings" />
+                  <NavLink href="#" title="Sign out" />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-        <CartModal />
       </div>
+
+      {/* Mobile menu */}
+      {isMobileMenuOpen && (
+        <div className="sm:hidden" id="mobile-menu">
+          <div className="space-y-1 pb-4 pt-2">
+            <NavLink href="/produktai" title="Parduotuvė" />
+            <NavLink href="/apie-mus" title="Apie mus" />
+            <NavLink href="/kontaktai" title="Kontaktai" />
+            <NavLink href="/politikos/privatumo-politika" title="Privatumo politika" />
+            <NavLink href="/politikos/grazinimas" title="Grąžinimas" />
+            <NavLink href="/politikos/pristatymas" title="Pristatymas" />
+          </div>
+        </div>
+      )}
     </nav>
   );
-}
+};
+
+export default Navbar;
