@@ -11,7 +11,7 @@ export default function ContactAndSubscribe() {
         
         {/* Subscription Form */}
         <div className="flex w-full md:w-1/2 items-center justify-center">
-          <div className="flex flex-col items-center justify-center pr-6 py-5 sm:py-6 w-full">
+          <div className="flex flex-col items-center justify-center px-6 py-5 sm:py-6 w-full">
             <div className="flex flex-col justify-center">
               <h3 className="text-base font-semibold leading-6 text-black">Prenumeruoti</h3>
               <form className="mt-5 sm:flex sm:items-center justify-center">
@@ -43,7 +43,7 @@ export default function ContactAndSubscribe() {
         </div>
         
         {/* Contact Information */}
-        <div className="flex flex-col items-center justify-center w-full md:w-1/2 pl-6 py-5 sm:py-6">
+        <div className="flex flex-col items-center justify-center w-full md:w-1/2 px-6 py-5 sm:py-6">
           <ul className="space-y-4 text-black">
             <li className="flex items-center">
               <EnvelopeIcon className="h-6 w-6 mr-3 text-black" />

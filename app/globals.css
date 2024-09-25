@@ -51,4 +51,7 @@ button {
   .banner-image-container img {
     height: calc(100vh - 76px)!important;
   }
+  .container{
+    padding: 0 15px;
+  }
 }
