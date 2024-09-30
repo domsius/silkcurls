@@ -7,6 +7,7 @@ const features = [
   {
     id: 1,
     title: 'PATARIMAI GRAŽESNĖMS GARBANOMS',
+    slug: 'patarimai-grazesnems-garbanoms',
     description: 'Sužinokite, kaip geriausiai išgauti ilgai išliekančias garbanas be šilumos pažeidimų.',
     imageUrl: '/images/feature1.jpeg',
     date: 'Mar 16, 2023',
@@ -22,6 +23,7 @@ const features = [
   {
     id: 2,
     title: 'SUKIMO PROCESAS',
+    slug: 'sukimo-procesas',
     description: 'Atraskite mūsų sukimo procesą, kuris padeda išgauti puikias garbanas be šilumos pažeidimų.',
     imageUrl: '/images/feature2.jpeg',
     date: 'Mar 17, 2023',
@@ -37,6 +39,7 @@ const features = [
   {
     id: 3,
     title: 'APIE MŪSŲ KELIĄ GARBANŲ LINK',
+    slug: 'apie-musu-garbanu-kelia',
     description: 'Perskaitykite apie mūsų kelionę link tobulų, sveikų garbanų, nenaudojant jokios šilumos.',
     imageUrl: '/images/feature3.jpeg',
     date: 'Mar 18, 2023',
@@ -51,11 +54,13 @@ const features = [
   },
 ];
 
+import Link from 'next/link';
+
 export default function FeaturesGrid() {
   return (
     <div className="bg-white pb-24 sm:pb-32">
       <div className="mx-auto container">
-      <div className="mx-auto max-w-2xl lg:mx-0">
+        <div className="mx-auto max-w-2xl lg:mx-0">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Mūsų funkcijos</h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             Mes siūlome platų įvairių funkcijų asortimentą, kad kiekvienas jūsų užsakymas būtų ypatingas.
@@ -65,12 +70,16 @@ export default function FeaturesGrid() {
           {features.map((feature) => (
             <article key={feature.id} className="flex flex-col items-start justify-between">
               <div className="relative w-full">
-                <img
-                  alt={feature.title}
-                  src={feature.imageUrl}
-                  className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                />
-                <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                <Link href={`/irasai/${feature.slug}`}>
+                
+                    <img
+                      alt={feature.title}
+                      src={feature.imageUrl}
+                      className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+                    />
+                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                  
+                </Link>
               </div>
               <div className="max-w-xl">
                 <div className="mt-8 flex items-center gap-x-4 text-xs">
@@ -86,15 +95,21 @@ export default function FeaturesGrid() {
                 </div>
                 <div className="group relative">
                   <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                    <a href="#">
-                      <span className="absolute inset-0" />
-                      {feature.title}
-                    </a>
+                    <Link href={`/irasai/${feature.slug}`}>
+                      
+                        <span className="absolute inset-0" />
+                        {feature.title}
+                      
+                    </Link>
                   </h3>
                   <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">{feature.description}</p>
                 </div>
                 <div className="relative mt-8 flex items-center gap-x-4">
-                  <img alt={feature.author.name} src={feature.author.imageUrl} className="h-10 w-10 rounded-full bg-gray-100" />
+                  <img
+                    alt={feature.author.name}
+                    src={feature.author.imageUrl}
+                    className="h-10 w-10 rounded-full bg-gray-100"
+                  />
                   <div className="text-sm leading-6">
                     <p className="font-semibold text-gray-900">
                       <a href={feature.author.href}>
@@ -113,3 +128,5 @@ export default function FeaturesGrid() {
     </div>
   );
 }
+
+

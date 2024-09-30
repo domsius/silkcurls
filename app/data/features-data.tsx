@@ -1,0 +1,51 @@
+export const features = [
+    {
+      id: 1,
+      title: 'PATARIMAI GRAŽESNĖMS GARBANOMS',
+      slug: 'patarimai-grazesnems-garbanoms',
+      description: 'Sužinokite, kaip geriausiai išgauti ilgai išliekančias garbanas be šilumos pažeidimų.',
+      imageUrl: '/images/feature1.jpeg',
+      date: 'Mar 16, 2023',
+      datetime: '2023-03-16',
+      category: { title: 'Plaukų priežiūra', href: '#' },
+      author: {
+        name: 'Simona',
+        role: 'Plaukų priežiūros specialistė',
+        href: '#',
+        imageUrl: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      },
+    },
+    {
+      id: 2,
+      title: 'SUKIMO PROCESAS',
+      slug: 'sukimo-procesas',
+      description: 'Atraskite mūsų sukimo procesą, kuris padeda išgauti puikias garbanas be šilumos pažeidimų.',
+      imageUrl: '/images/feature2.jpeg',
+      date: 'Mar 17, 2023',
+      datetime: '2023-03-17',
+      category: { title: 'Garbanojimo metodai', href: '#' },
+      author: {
+        name: 'Aurelija',
+        role: 'Plaukų formavimo ekspertė',
+        href: '#',
+        imageUrl: 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      },
+    },
+    {
+      id: 3,
+      title: 'APIE MŪSŲ KELIĄ GARBANŲ LINK',
+      slug: 'apie-musu-garbanu-kelia',
+      description: 'Perskaitykite apie mūsų kelionę link tobulų, sveikų garbanų, nenaudojant jokios šilumos.',
+      imageUrl: '/images/feature3.jpeg',
+      date: 'Mar 18, 2023',
+      datetime: '2023-03-18',
+      category: { title: 'Plaukų priežiūros istorija', href: '#' },
+      author: {
+        name: 'Simona & Aurelija',
+        role: 'Plaukų priežiūros specialistės',
+        href: '#',
+        imageUrl: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      },
+    },
+  ];
+
